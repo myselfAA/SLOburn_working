@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+#apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+  labels:
+    app: grafana
+spec:
+  replicas: 1
+#added selector here
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - image: gcr.io/cre-prometheus-slo-alerting/grafana:latest
+        name: grafana
+        imagePullPolicy: Always
+        ports:
+        - name: appport
+          containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: monitoring
+  labels:
+    app: grafana
+  annotations:
+    prometheus.io/scrape: 'true'
+spec:
+  type: LoadBalancer
+# type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: grafana
+---
+apiVersion: networking.k8s.io/v1
+#apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: monitoring
+  name: grafana
+  annotations:
+    spec.ingressClassName: "gce"
+#    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: grafana-ip
+  labels:
+    app: grafana
+spec:
+#  backend:
+#    serviceName: grafana
+#    servicePort: 8080
+#added rules under spec as per k8s website
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: grafana
+            port:
+              number: 8080
