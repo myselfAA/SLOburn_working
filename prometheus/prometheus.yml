@@ -2,6 +2,13 @@ global:
   scrape_interval: 30s
   scrape_timeout: 5s
   evaluation_interval: 30s
+#added remote write
+remote_write:
+- url: https://prometheus-prod-26-prod-ap-south-0.grafana.net/api/prom/push
+  basic_auth:
+    username: 1168532
+    password: glc_eyJvIjoiOTM1MTUwIiwibiI6InN0YWNrLTczMDMwOC1obS1yZWFkLWZvcnB1c2hpbmdtZXRyaWNzdG9jbG91ZCIsImsiOiI0NzcxeEtzOVJPbjk5bzM3dmhjNnBLWWUiLCJtIjp7InIiOiJwcm9kLWFwLXNvdXRoLTAifX0=
+#
 scrape_configs:
 - job_name: kubernetes-apiservers
   kubernetes_sd_configs:

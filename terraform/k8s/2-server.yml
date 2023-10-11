@@ -19,7 +19,8 @@ spec:
     spec:
       containers:
       - name: server
-        image: gcr.io/cre-prometheus-slo-alerting/example-server:latest
+        image: rakeshgowdaraka/server:latest
+#        image: gcr.io/cre-prometheus-slo-alerting/example-server:latest
         ports:
         - name: appport
           containerPort: 8080

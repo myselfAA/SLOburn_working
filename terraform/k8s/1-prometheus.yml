@@ -34,7 +34,9 @@ spec:
       serviceAccountName: prometheus
       containers:
       - name: prometheus
-        image: prom/prometheus
+        image: myselfaa/prom_sloburn
+#        image: rakeshgowdaraka/prometheus
+#        image: prom/prometheus
 #        image: gcr.io/cre-prometheus-slo-alerting/prometheus:latest
         imagePullPolicy: Always
         ports:

@@ -19,7 +19,8 @@ spec:
     spec:
       containers:
       - name: cloudprober
-        image: cloudprober/cloudprober
+        image: rakeshgowdaraka/cloudprober:latest
+#        image: cloudprober/cloudprober
 #        image: gcr.io/cre-prometheus-slo-alerting/cloudprober:latest
         env:
         - name: PORT
